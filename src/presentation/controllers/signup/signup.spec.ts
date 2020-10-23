@@ -8,7 +8,7 @@ const makeSut = () => {
 };
 
 describe('SignUp controller', () => {
-  test('Shpuld return 400 if no name is provided', () => {
+  test('Should return 400 if no name is provided', () => {
     const { sut } = makeSut();
 
     const httpRequest = {
@@ -25,7 +25,7 @@ describe('SignUp controller', () => {
     expect(httpResponse.body).toEqual('Missing param name');
   });
 
-  test('Shpuld return 400 if no email is provided', () => {
+  test('Should return 400 if no email is provided', () => {
     const { sut } = makeSut();
 
     const httpRequest = {
@@ -40,5 +40,22 @@ describe('SignUp controller', () => {
 
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual('Missing param email');
+  });
+
+  test('Should return 400 if no email is provided', () => {
+    const { sut } = makeSut();
+
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        passwordConfirmation: 'any_password',
+      },
+    };
+
+    const httpResponse = sut.handle(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual('Missing param password');
   });
 });
